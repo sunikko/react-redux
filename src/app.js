@@ -1,6 +1,7 @@
+/* @jsx createElement */
 import {createDOM, render, createElement} from './react.js';
 
-const virtualDom = {
+const virtualDOM1 = {
     tag: 'div',
     props: {},
     children: [
@@ -37,7 +38,7 @@ const virtualDom = {
     ],
 };
 
-const virtualDom2 = createElement(
+const virtualDOM2 = createElement(
     'div',
     { className: 'container' },
     createElement('h1', { className: 'title' }, 'Hello, Virtual DOM!'),
@@ -50,4 +51,16 @@ const virtualDom2 = createElement(
     )
 );
 
-render(virtualDom2, document.querySelector('#root'));
+const virtualDOM = (
+    <p>
+      Hello, <span style="color: red;">Virtual DOM!</span>
+      <ul>
+        <li style="color: red;">Virtual DOM is a programming concept.</li>
+        <li style="color: blue;">It is used in React.</li>
+        <li style="color: green;">It makes UI updates faster.</li>
+      </ul>
+    </p>
+  );
+
+
+render(virtualDOM, document.querySelector('#root'));
