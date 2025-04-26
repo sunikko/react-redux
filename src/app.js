@@ -1,4 +1,4 @@
-import {createDOM, render} from './react.js';
+import {createDOM, render, createElement} from './react.js';
 
 const virtualDom = {
     tag: 'div',
@@ -37,4 +37,17 @@ const virtualDom = {
     ],
 };
 
-render(virtualDom, document.querySelector('#root'));
+const virtualDom2 = createElement(
+    'div',
+    { className: 'container' },
+    createElement('h1', { className: 'title' }, 'Hello, Virtual DOM!'),
+    createElement(
+        'ul',
+        { className: 'description' },
+        createElement('li', { style: 'color: red;' }, 'Virtual DOM is a programming concept.'),
+        createElement('li', { style: 'color: blue;' }, 'It is used in React.'),
+        createElement('li', { style: 'color: green;' }, 'It makes UI updates faster.')
+    )
+);
+
+render(virtualDom2, document.querySelector('#root'));

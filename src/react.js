@@ -10,6 +10,13 @@ export function createDOM(node) {
     return element;
 }
 
+export function createElement(tag, props, ...children) {
+    return {
+        tag,
+        props,
+        children
+    };
+}
 export function render(virtualDOM, container) {
     container.appendChild(createDOM(virtualDOM));
 }
