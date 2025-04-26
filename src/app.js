@@ -1,12 +1,4 @@
-function createDOM(node) {
-    if(typeof node === 'string') {
-        return document.createTextNode(node);
-    }
-    const element = document.createElement(node.tag);
-
-    node.children.map(createDOM).forEach(element.appendChild.bind(element));
-    return element;
-}
+import {createDOM, render} from './react.js';
 
 const virtualDom = {
     tag: 'div',
@@ -27,17 +19,17 @@ const virtualDom = {
             children: [
                 {
                     tag: 'li',
-                    props: {},
+                    props: {style: 'color: red;'},
                     children: ['Virtual DOM is a programming concept.'],
                 },
                 {
                     tag: 'li',
-                    props: {},
+                    props: { style: 'color: blue;' },
                     children: ['It is used in React.'],
                 },
                 {
                     tag: 'li',
-                    props: {},
+                    props: { style: 'color: green;' },
                     children: ['It makes UI updates faster.'],
                 },
             ],
@@ -45,4 +37,4 @@ const virtualDom = {
     ],
 };
 
-document.querySelector('#root').appendChild(createDOM(virtualDom));
+render(virtualDom, document.querySelector('#root'));
