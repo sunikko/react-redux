@@ -1,5 +1,5 @@
 /* @jsx createElement */
-import {createDOM, render, createElement} from './react.js';
+import {render, createElement, Component} from './react.js';
 
 const virtualDOM1 = {
     tag: 'div',
@@ -51,17 +51,22 @@ const virtualDOM2 = createElement(
     )
 );
 
-function Title(props){
-    return <h1>{props.children}</h1>;
+
+// class component
+class Title extends Component {
+    render() {
+        return <h1>{this.props.children}</h1>;
+    }
 }
 
+// funtion component
 function Item(props){
     return <li style={`color: ${props.color}`}>{props.children}</li>;
 }
 
-const virtualDOM = (
+const App = () => (
     <p>
-        <Title>Hello!!! Virtual DOM!</Title>
+        <Title>Hello!!! Virtual DOM Class!</Title>
         <ul>
             <Item color="red">Virtual DOM is a programming concept.</Item>
             <Item color="blue">It is used in React.</Item>
@@ -71,4 +76,4 @@ const virtualDOM = (
   );
 
 
-render(virtualDOM, document.querySelector('#root'));
+render( <App />, document.querySelector('#root'));
