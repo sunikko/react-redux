@@ -1,28 +1,48 @@
-function createH1(props) {
-    return [document.createElement('h1')]
-    .map(element => {
-      Object
-        .entries({ ...props, 'data-id': 'subject' })
-        .forEach(([name, value]) => element.setAttribute(name, value))
-      return element;
-    })[0];
-  }
-  
-  function createDiv(props) {
-    return [document.createElement('div')]
-    .map(element => {
-      Object
-        .entries({ ...props, 'data-id': 'layout' })
-        .forEach(([name, value]) => element.setAttribute(name, value))
-      return element;
-    })[0];
-  }
-  
-  const creatorMap = {
-    h1: createH1,
-    div: createDiv,
-  };
-  
-  const coupler = map => (type, props) => map[type](props);
-  const createElement = coupler(creatorMap);
-  
+function createDOM(node) {
+    if(typeof node === 'string') {
+        return document.createTextNode(node);
+    }
+    const element = document.createElement(node.tag);
+
+    node.children.map(createDOM).forEach(element.appendChild.bind(element));
+    return element;
+}
+
+const virtualDom = {
+    tag: 'div',
+    props: {},
+    children: [
+        {
+            tag: 'h1',
+            props: {
+                className: 'title',
+            },
+            children: ['Hello, Virtual DOM!'],
+        },
+        {
+            tag: 'ul',
+            props: {
+                className: 'description',
+            },
+            children: [
+                {
+                    tag: 'li',
+                    props: {},
+                    children: ['Virtual DOM is a programming concept.'],
+                },
+                {
+                    tag: 'li',
+                    props: {},
+                    children: ['It is used in React.'],
+                },
+                {
+                    tag: 'li',
+                    props: {},
+                    children: ['It makes UI updates faster.'],
+                },
+            ],
+        },
+    ],
+};
+
+document.querySelector('#root').appendChild(createDOM(virtualDom));
